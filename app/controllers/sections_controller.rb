@@ -7,7 +7,7 @@ class SectionsController < ApplicationController
     agent = Mechanize.new
     page = agent.get('http://sfbay.craigslist.org/')
     @sections = page.links_with(:href => /^...\/$/)
-    response.headers['Cache-Control'] = 'public, max-age=3600'
+    response.headers['Cache-Control'] = 'public, max-age=6400'
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @sections }
@@ -25,7 +25,7 @@ class SectionsController < ApplicationController
       {:id => link.href.match(/(\d+).html$/)[1], :link => link.href}
     end
     # @items.delete_if {|a| a[:img] == "https://secure.gravatar.com/avatar/61e77fef78d5c6da659fee96cdd4d791?s=140&d=https%3A%2F%2Fgithub.com%2Fimages%2Fgravatars%2Fgravatar-140.png" }
-    response.headers['Cache-Control'] = 'public, max-age=300'
+    response.headers['Cache-Control'] = 'public, max-age=600'
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @section }

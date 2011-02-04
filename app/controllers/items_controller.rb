@@ -35,7 +35,7 @@ class ItemsController < ApplicationController
       @item.save
     end
     
-    response.headers['Cache-Control'] = 'public, max-age=3600'
+    response.headers['Cache-Control'] = 'public, max-age=6400'
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @item }
