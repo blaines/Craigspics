@@ -21,7 +21,7 @@ class SectionsController < ApplicationController
     agent = Mechanize.new
     page = agent.get('http://sfbay.craigslist.org/'+params[:id])
     @section = page.links_with(:href => /\d{10}\.html$/)
-    @items = @section.map[0..50] do |link|
+    @items = @section[0..50].map do |link|
       hash = {:title => link.text, :href => link.href}
       z = agent.get(link.href)
       images = z.search("img")
