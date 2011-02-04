@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
         hash[:img] = images[1]['src'] if images.size > 1
         hash[:img] ||= images.last['src']
       else
-        hash[:img] = "https://secure.gravatar.com/avatar/61e77fef78d5c6da659fee96cdd4d791?s=140&d=https%3A%2F%2Fgithub.com%2Fimages%2Fgravatars%2Fgravatar-140.png"
+        hash[:img] = ""
       end
       @item.attributes = hash
       @item.save

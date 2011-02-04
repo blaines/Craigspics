@@ -22,7 +22,9 @@ $(document).ready(function () {
 		      type: "GET",
 		      async:true,
 		      success: function(data){
-		         $('#content').prepend('<a href="'+data.href+'"><img src='+data.img+' width="100"></a>');
+				if(data.img) {
+					$('#content').prepend('<a href="'+data.href+'"><img src='+data.img+' width="100"></a>');
+				}
 		      }
 		});
 	});
