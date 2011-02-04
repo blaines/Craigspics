@@ -3,6 +3,8 @@
 <% form_tag "/sections/#{params[:id]}/search", :method => 'get' do %>
   <p>
     <%= text_field_tag :q, params[:q] %>
+    <%= text_field_tag :min_ask, params[:min_ask] %>
+    <%= text_field_tag :max_ask, params[:max_ask] %>
     <%= submit_tag "Search", :name => nil %>
   </p>
 <% end %>
@@ -33,7 +35,7 @@ $(document).ready(function () {
 		      success: function(data){
 				data.price == 0 ? price = "" : price = "$"+data.price;
 				if(data.img) {
-					$('#content').prepend('<div class="does_scale" style="margin: 3px; width: 100px; height: 100px; overflow: hidden; position: relative; float: left;"><a style="text-decoration: none; color: #FFF; text-shadow: 0px 0px 2px #000; font-weight: bold;" href="'+data.href+'"><img src='+data.img+' width="100"><div style="position: absolute; top: 0; left: 0;">'+price+'</div></a></div>');
+					$('#content').prepend('<div class="does_scale" style="margin: 3px; width: 100px; height: 100px; overflow: hidden; position: relative; float: left;"><a style="text-decoration: none; color: #FFF; text-shadow: 0px 0px 2px #000; font-weight: bold;" href="'+data.href+'"><img src='+data.img+' width="100" alt="'+data.title+'" ><div style="position: absolute; top: 0; left: 0;">'+price+'</div></a></div>');
 				}
 		      }
 		});
