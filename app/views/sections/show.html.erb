@@ -6,9 +6,18 @@
     <%= submit_tag "Search", :name => nil %>
   </p>
 <% end %>
-<div id="loading" style="position: absolute; width: 100%; height: 100%; background: rgba(255,255,255,.5); text-align: center;"><div style="width: 300px; margin: 0 auto; font-size: 3em; margin-top: 5em;">Loading pics</div></div>
+<div id="loading" style="position: absolute; z-index: 1000000; width: 100%; height: 100%; background: rgba(255,255,255,.5); text-align: center;"><div style="width: 300px; margin: 0 auto; font-size: 3em; margin-top: 5em;">Loading pics</div></div>
 <div id="content">
 </div>
+<style>
+.does_scale {
+	-webkit-transition: all .2s linear;
+}
+.does_scale:hover {
+	-webkit-transform: scale(2);
+	z-index: 10000;
+}
+</style>
 <script>
 $(document).ready(function () {
 	$('#loading').hide().ajaxStart(function() {
@@ -23,7 +32,7 @@ $(document).ready(function () {
 		      async:true,
 		      success: function(data){
 				if(data.img) {
-					$('#content').prepend('<a href="'+data.href+'"><img src='+data.img+' width="100"></a>');
+					$('#content').prepend('<div class="does_scale" style="margin: 3px; width: 100px; height: 100px; overflow: hidden; position: relative; float: left;"><a style="text-decoration: none; color: #FFF; text-shadow: 0px 0px 2px #000; font-weight: bold;" href="'+data.href+'"><img src='+data.img+' width="100"><div style="position: absolute; top: 0; left: 0;">$'+data.price+'</div></a></div>');
 				}
 		      }
 		});

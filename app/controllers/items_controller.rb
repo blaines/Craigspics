@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
     if @item.new_record?
       agent = Mechanize.new
       z = agent.get(link)
-      hash = {:title => z.search("h2").first.text, :href => link, :text => z.search("#userbody").first.text, :posting_id => posting_id}
+      hash = {:title => z.search("h2").first.text, :price => z.search("h2").first.text.match(/\$([1234567890\.]+)\s/)[1], :href => link, :text => z.search("#userbody").first.text, :posting_id => posting_id}
       images = z.search("img")
       if images.size > 0
         hash[:img] = images[1]['src'] if images.size > 1
@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
       @item.save
     end
     
-
+    response.headers['Cache-Control'] = 'public, max-age=3600'
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @item }
