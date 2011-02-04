@@ -31,7 +31,7 @@ $(document).ready(function () {
 		$.ajax({
 		      url: '/items/'+e['id']+'.json?link='+e['link'],
 		      type: "GET",
-			  timeout: 5000,
+			  timeout: 10000,
 		      async:true,
 		      success: function(data){
 				data.price == 0 ? price = "" : price = "$"+data.price;
