@@ -23,6 +23,6 @@ Craigspics::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
   
-  ENV["REDISTOGO_URL"] = 'redis://redistogo:d4eb3b37ea7e9e518fc96521ca05fd80@goosefish.redistogo.com:9292/'
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:cf0c9d9d306b08595f110cbe364408e4@goosefish.redistogo.com:9292/'
 end
 
