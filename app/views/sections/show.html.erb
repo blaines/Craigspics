@@ -1,3 +1,5 @@
+<h1><%= params[:id] %></h1>
+<a href="/">Home</a>
 <% @items.each do |item| %>
 <%= link_to(image_tag(item[:img],:width => 100),item[:href]) %>
 <% end %>
