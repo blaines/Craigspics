@@ -16,23 +16,29 @@ class ItemsController < ApplicationController
     link = params[:link]
     posting_id = params[:id]
     
-    @item = Item.find_or_initialize_by(:posting_id => posting_id)
-    if @item.new_record?
-      agent = Mechanize.new
-      z = agent.get(link)
-      t = z.search("h2").first.text.match(/\$([1234567890\.]+)\s/)
-      price = t[1] if t
-      price ||= 0
-      hash = {:title => z.search("h2").first.text, :price => price, :href => link, :text => z.search("#userbody").first.text, :posting_id => posting_id}
-      images = z.search("img")
-      if images.size > 0
-        hash[:img] = images[1]['src'] if images.size > 1
-        hash[:img] ||= images.last['src']
-      else
-        hash[:img] = ""
+    r = REDIS.get posting_id
+    if r
+      @item = Item.new(ActiveSupport::JSON.decode r) # Instantiating a fake Item :D
+    else
+      @item = Item.find_or_initialize_by(:posting_id => posting_id)
+      if @item.new_record?
+        agent = Mechanize.new
+        z = agent.get(link)
+        t = z.search("h2").first.text.match(/\$([1234567890\.]+)\s/)
+        price = t[1] if t
+        price ||= 0
+        hash = {:title => z.search("h2").first.text, :price => price, :href => link, :text => z.search("#userbody").first.text, :posting_id => posting_id}
+        images = z.search("img")
+        if images.size > 0
+          hash[:img] = images[1]['src'] if images.size > 1
+          hash[:img] ||= images.last['src']
+        else
+          hash[:img] = ""
+        end
+        @item.attributes = hash
+        @item.save
+        REDIS.set @item.posting_id, {:href => @item.href, :img => @item.img, :price => @item.price}.to_json
       end
-      @item.attributes = hash
-      @item.save
     end
     
     response.headers['Cache-Control'] = 'public, max-age=6400'

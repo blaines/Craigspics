@@ -76,6 +76,7 @@ GEM
       rake (>= 0.8.4)
       thor (~> 0.14.0)
     rake (0.8.7)
+    redis (2.1.1)
     ruby-debug (0.10.4)
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.4.0)
@@ -98,5 +99,6 @@ DEPENDENCIES
   mechanize
   mongoid
   rails (= 3.0.0)
+  redis
   ruby-debug
   sqlite3-ruby
