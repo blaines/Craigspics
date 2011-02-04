@@ -22,22 +22,7 @@ class SectionsController < ApplicationController
     page = agent.get('http://sfbay.craigslist.org/'+params[:id])
     @links = page.links_with(:href => /\d{10}\.html$/)
     @items = @links.map do |link|
-      posting_id = link.href.match(/(\d+).html$/)[1]
-      item = Item.find_or_initialize_by(:posting_id => posting_id)
-      if item.new_record?
-        z = agent.get(link.href)
-        hash = {:title => link.text, :href => link.href, :text => z.search("#userbody").first.text, :posting_id => posting_id}
-        images = z.search("img")
-        if images.size > 0
-          hash[:img] = images[1]['src'] if images.size > 1
-          hash[:img] ||= images.last['src']
-        else
-          hash[:img] = "https://secure.gravatar.com/avatar/61e77fef78d5c6da659fee96cdd4d791?s=140&d=https%3A%2F%2Fgithub.com%2Fimages%2Fgravatars%2Fgravatar-140.png"
-        end
-        item.attributes = hash
-        item.save
-      end
-      item
+      {:id => link.href.match(/(\d+).html$/)[1], :link => link.href}
     end
     # @items.delete_if {|a| a[:img] == "https://secure.gravatar.com/avatar/61e77fef78d5c6da659fee96cdd4d791?s=140&d=https%3A%2F%2Fgithub.com%2Fimages%2Fgravatars%2Fgravatar-140.png" }
     response.headers['Cache-Control'] = 'public, max-age=300'
@@ -49,29 +34,14 @@ class SectionsController < ApplicationController
 
   # GET /sections/new
   # GET /sections/new.xml
+  # link.href.match(/(\d+).html$/)[1]
   def search
     agent = Mechanize.new
     page = agent.get("http://sfbay.craigslist.org/search/#{params[:id]}?query=#{params[:q].gsub(/\s/,'+')}&srchType=A&minAsk=&maxAsk=")
     @links = page.links_with(:href => /\d{10}\.html$/)
     @items = @links.map do |link|
-      posting_id = link.href.match(/(\d+).html$/)[1]
-      item = Item.find_or_initialize_by(:posting_id => posting_id)
-      if item.new_record?
-        z = agent.get(link.href)
-        hash = {:title => link.text, :href => link.href, :text => z.search("#userbody").first.text, :posting_id => posting_id}
-        images = z.search("img")
-        if images.size > 0
-          hash[:img] = images[1]['src'] if images.size > 1
-          hash[:img] ||= images.last['src']
-        else
-          hash[:img] = "https://secure.gravatar.com/avatar/61e77fef78d5c6da659fee96cdd4d791?s=140&d=https%3A%2F%2Fgithub.com%2Fimages%2Fgravatars%2Fgravatar-140.png"
-        end
-        item.attributes = hash
-        item.save
-      end
-      item
+      {:id => link.href.match(/(\d+).html$/)[1], :link => link.href}
     end
-
     respond_to do |format|
       format.html { render :show }
       format.xml  { render :xml => @section }

@@ -13,11 +13,30 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.xml
   def show
-    @item = Item.find(params[:id])
+    link = params[:link]
+    posting_id = params[:id]
+    
+    @item = Item.find_or_initialize_by(:posting_id => posting_id)
+    if @item.new_record?
+      agent = Mechanize.new
+      z = agent.get(link)
+      hash = {:title => z.search("h2").first.text, :href => link, :text => z.search("#userbody").first.text, :posting_id => posting_id}
+      images = z.search("img")
+      if images.size > 0
+        hash[:img] = images[1]['src'] if images.size > 1
+        hash[:img] ||= images.last['src']
+      else
+        hash[:img] = "https://secure.gravatar.com/avatar/61e77fef78d5c6da659fee96cdd4d791?s=140&d=https%3A%2F%2Fgithub.com%2Fimages%2Fgravatars%2Fgravatar-140.png"
+      end
+      @item.attributes = hash
+      @item.save
+    end
+    
 
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @item }
+      format.json { render :json => @item }
     end
   end
 
