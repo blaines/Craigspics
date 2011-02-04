@@ -19,8 +19,6 @@ class ItemsController < ApplicationController
     @item = Item.find_or_initialize_by(:posting_id => posting_id)
     if @item.new_record?
       agent = Mechanize.new
-      agent.open_timeout(1000)
-      agent.read_timeout(1000)
       z = agent.get(link)
       t = z.search("h2").first.text.match(/\$([1234567890\.]+)\s/)
       price = t[1] if t
