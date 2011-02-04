@@ -7,7 +7,11 @@ class SectionsController < ApplicationController
     agent = Mechanize.new
     page = agent.get('http://sfbay.craigslist.org/')
     @sections = page.links_with(:href => /^...\/$/)
-
+    
+    
+    response.headers['Cache-Control'] = 'public, max-age=3600'
+    
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @sections }
@@ -33,7 +37,7 @@ class SectionsController < ApplicationController
       end
       hash
     end
-
+    response.headers['Cache-Control'] = 'public, max-age=300'
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @section }
