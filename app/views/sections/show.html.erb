@@ -1,5 +1,11 @@
 <h1><%= params[:id] %></h1>
 <a href="/">Home</a>
+<% form_tag "/sections/#{params[:id]}/search", :method => 'get' do %>
+  <p>
+    <%= text_field_tag :q, params[:q] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
 <div>
 	<% @items.each do |item| %>
 	<%= link_to(image_tag(item[:img],:width => 100),item[:href]) %>
