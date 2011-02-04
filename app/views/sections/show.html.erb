@@ -10,34 +10,6 @@
 <div id="content">
 </div>
 <script>
-var currentAjaxRequest = null;
-jQuery.ajaxQueue = function(ajaxOptions)
-{
-    var success = ajaxOptions.success;
-    var error = ajaxOptions.error;
-    var complete = ajaxOptions.complete;
-
-    ajaxOptions.success = function()
-    {
-        if (success) { try { success.apply(this, arguments); } catch (e) { } }
-    };
-    ajaxOptions.error = function()
-    {
-        if (error) { try { error.apply(this, arguments); } catch (e) { } }
-    };
-    ajaxOptions.complete = function()
-    {
-        if (complete) { try { complete.apply(this, arguments); } catch (e) { } }
-        currentAjaxRequest = null;
-        $(window).dequeue("ajax");
-    };
-    $(window).queue("ajax", function()
-    {
-        currentAjaxRequest = jQuery.ajax(ajaxOptions);
-    });
-    if (currentAjaxRequest === null) { $(window).dequeue("ajax"); }
-};
-
 $(document).ready(function () {
 	$('#loading').hide().ajaxStart(function() {
 		$(this).show();
@@ -53,9 +25,6 @@ $(document).ready(function () {
 		         $('#content').prepend('<a href="'+data.href+'"><img src='+data.img+' width="100"></a>');
 		      }
 		});
-		// $.ajaxQueue('/items/'+e+'.json', function(data) {
-		//   $('#content').prepend('<a href="'+data.href+'"><img src='+data.img+' width="100"></a>');
-		// });
 	});
 });
 </script>
