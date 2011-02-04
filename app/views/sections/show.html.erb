@@ -2,9 +2,9 @@
 <a href="/">Home</a>
 <% form_tag "/sections/#{params[:id]}/search", :method => 'get' do %>
   <p>
-    <%= text_field_tag :q, params[:q] %>
-    <%= text_field_tag :min_ask, params[:min_ask] %>
-    <%= text_field_tag :max_ask, params[:max_ask] %>
+    <%= text_field_tag :q, params[:q], :placeholder => "Search" %>
+    <%= text_field_tag :min_ask, params[:min_ask], :size => 4, :placeholder => "Min" %>
+    <%= text_field_tag :max_ask, params[:max_ask], :size => 4, :placeholder => "Max" %>
     <%= submit_tag "Search", :name => nil %>
   </p>
 <% end %>
