@@ -5,6 +5,7 @@ gem 'jquery-rails', '>= 0.2.6'
 gem 'mechanize'
 gem 'mongoid'
 gem 'redis'
+gem 'sqlite3'
 
 group :deployment do
 	gem 'capistrano'
