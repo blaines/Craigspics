@@ -46,4 +46,7 @@ Craigspics::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  
+  ENV['MONGOHQ_URL'] = "mongodb://heroku:e60t2mbmftogykbfxyyuoq@flame.mongohq.com:27032/app431820"
+  ENV['REDISTOGO_URL'] = "redis://redistogo:cf0c9d9d306b08595f110cbe364408e4@goosefish.redistogo.com:9292/"
 end
