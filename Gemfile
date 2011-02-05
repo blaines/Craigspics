@@ -5,6 +5,8 @@ gem 'jquery-rails', '>= 0.2.6'
 gem 'mechanize'
 gem 'mongoid'
 gem 'redis'
+gem 'capistrano'
+gem 'git-deploy'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
