@@ -36,7 +36,7 @@ class SectionsController < ApplicationController
   # GET /sections/new.xml
   # link.href.match(/(\d+).html$/)[1]
   def search
-    safe_params = {:query => params[:q].gsub(/\s/,'+'), :srchType => "A", :minAsk => params[:min_ask], :maxAsk => params[:max_ask], :hasPic => 1}
+    safe_params = {:query => params[:q].gsub(/\s/,'+'), :srchType => "A", :minAsk => params[:min_ask], :maxAsk => params[:max_ask], :hasPic => 1, :s => params[:s]}
     agent = Mechanize.new
     uri = "http://sfbay.craigslist.org/search/#{params[:id]}?#{safe_params.to_query}"
     puts ">>>> #### >>>> "+uri
