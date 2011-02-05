@@ -1,6 +1,6 @@
-set :rvm_ruby_string, '1.8.7'        # Or whatever env you want it to run in.
+set :rvm_ruby_string, '1.8.7'
 # set to the name of git remote you intend to deploy to
-set :remote, "dev"
+set :remote, "production"
 # specify the deployment branch
 set :branch, "master"
 # sudo will only be used to create the deployment directory
