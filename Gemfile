@@ -4,7 +4,7 @@ gem 'rails', '3.0.0'
 gem 'jquery-rails', '>= 0.2.6'
 gem 'mechanize'
 gem 'mongoid'
-gem 'redis'
+gem 'redis', :git => "git@github.com:/antirez/redis.git"
 
 group :deployment do
 	gem 'capistrano'
