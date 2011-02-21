@@ -1,19 +1,7 @@
-<h1>Listing sections</h1>
-
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @sections.each do |section| %>
-  <tr>
-    <td><%= link_to section.text, "/sections/#{section.href}#{'?location='+params[:location] if params[:location]}" %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Section', new_section_path %>
+<div class="sections">
+	<% @sections.each do |section| %>
+	<div class="section">
+		<%= link_to section.text, "/sections/#{section.href}#{'?location='+params[:location] if params[:location]}" %>
+	</div>
+	<% end %>	
+</div>

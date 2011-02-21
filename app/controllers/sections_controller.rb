@@ -20,8 +20,10 @@ class SectionsController < ApplicationController
   def show
     # @section = Section.find(params[:id])
     location = params[:location] || "sfbay"
+    @s = params[:s] || 0
+    index = "index#{@s if @s.to_i > 0}.html"
     agent = Mechanize.new
-    page = agent.get("http://#{location}.craigslist.org/"+params[:id])
+    page = agent.get("http://#{location}.craigslist.org/#{params[:id]}/#{index}")
     @links = page.links_with(:href => /\d{10}\.html$/)
     @items = @links.map do |link|
       {:id => link.href.match(/(\d+).html$/)[1], :link => link.href}
@@ -39,6 +41,7 @@ class SectionsController < ApplicationController
   # link.href.match(/(\d+).html$/)[1]
   def search
     safe_params = {:query => params[:q].gsub(/\s/,'+'), :srchType => "A", :minAsk => params[:min_ask], :maxAsk => params[:max_ask], :hasPic => 1, :s => params[:s]}
+    @s = params[:s] || 0
     agent = Mechanize.new
     location = params[:location] || "sfbay"
     uri = "http://#{location}.craigslist.org/search/#{params[:id]}?#{safe_params.to_query}"
