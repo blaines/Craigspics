@@ -5,7 +5,8 @@ class SectionsController < ApplicationController
     # @sections = Section.all
 
     agent = Mechanize.new
-    page = agent.get('http://sfbay.craigslist.org/')
+    location = params[:location] || "sfbay"
+    page = agent.get("http://#{location}.craigslist.org/")
     @sections = page.links_with(:href => /^...\/$/)
     response.headers['Cache-Control'] = 'public, max-age=6400'
     respond_to do |format|
@@ -18,8 +19,9 @@ class SectionsController < ApplicationController
   # GET /sections/1.xml
   def show
     # @section = Section.find(params[:id])
+    location = params[:location] || "sfbay"
     agent = Mechanize.new
-    page = agent.get('http://sfbay.craigslist.org/'+params[:id])
+    page = agent.get("http://#{location}.craigslist.org/"+params[:id])
     @links = page.links_with(:href => /\d{10}\.html$/)
     @items = @links.map do |link|
       {:id => link.href.match(/(\d+).html$/)[1], :link => link.href}
@@ -38,7 +40,8 @@ class SectionsController < ApplicationController
   def search
     safe_params = {:query => params[:q].gsub(/\s/,'+'), :srchType => "A", :minAsk => params[:min_ask], :maxAsk => params[:max_ask], :hasPic => 1, :s => params[:s]}
     agent = Mechanize.new
-    uri = "http://sfbay.craigslist.org/search/#{params[:id]}?#{safe_params.to_query}"
+    location = params[:location] || "sfbay"
+    uri = "http://#{location}.craigslist.org/search/#{params[:id]}?#{safe_params.to_query}"
     puts ">>>> #### >>>> "+uri
     page = agent.get(uri)
     @links = page.links_with(:href => /\d{10}\.html$/)
