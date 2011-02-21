@@ -9,7 +9,7 @@
 
 <% @sections.each do |section| %>
   <tr>
-    <td><%= link_to section.text, "/sections/#{section.href}" %></td>
+    <td><%= link_to section.text, "/sections/#{section.href}#{params[:location]}" %></td>
   </tr>
 <% end %>
 </table>
