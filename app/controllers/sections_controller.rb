@@ -40,7 +40,9 @@ class SectionsController < ApplicationController
   # GET /sections/new.xml
   # link.href.match(/(\d+).html$/)[1]
   def search
-    safe_params = {:query => params[:q].gsub(/\s/,'+'), :srchType => "A", :minAsk => params[:min_ask], :maxAsk => params[:max_ask], :hasPic => 1, :s => params[:s]}
+    safe_query = params[:q].gsub(/\s/,'+') if params[:q]
+    safe_query ||= ""
+    safe_params = {:query => safe_query, :srchType => "A", :minAsk => params[:min_ask], :maxAsk => params[:max_ask], :hasPic => 1, :s => params[:s]}
     @s = params[:s] || 0
     agent = Mechanize.new
     location = params[:location] || "sfbay"
