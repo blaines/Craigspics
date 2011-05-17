@@ -37,7 +37,7 @@ class ItemsController < ApplicationController
         end
         @item.attributes = hash
         @item.save
-        REDIS.set @item.posting_id, {:href => @item.href, :img => @item.img, :price => @item.price}.to_json
+        REDIS.setex @item.posting_id, 1.hour.to_i, {:href => @item.href, :img => @item.img, :price => @item.price}.to_json
       end
     end
     
