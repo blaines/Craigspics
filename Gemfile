@@ -6,11 +6,6 @@ gem 'mechanize'
 gem 'mongoid'
 gem 'redis'
 
-group :deployment do
-	gem 'capistrano'
-	gem 'git-deploy'
-end
-
 group :development, :test do
 	gem 'ruby-debug'
 end

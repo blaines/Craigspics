@@ -32,18 +32,9 @@ GEM
       activesupport (~> 3.0.0)
     bson (1.2.0)
     builder (2.1.2)
-    capistrano (2.5.19)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.0.0)
     columnize (0.3.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    git-deploy (0.4.1)
-      capistrano (~> 2.5.9)
-    highline (1.6.1)
     i18n (0.4.2)
     jquery-rails (0.2.6)
       rails (~> 3.0)
@@ -64,13 +55,6 @@ GEM
       mongo (~> 1.1)
       tzinfo (~> 0.3.22)
       will_paginate (~> 3.0.pre)
-    net-scp (1.0.4)
-      net-ssh (>= 1.99.1)
-    net-sftp (2.0.5)
-      net-ssh (>= 2.0.9)
-    net-ssh (2.1.0)
-    net-ssh-gateway (1.0.1)
-      net-ssh (>= 1.99.1)
     nokogiri (1.4.4)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -108,8 +92,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capistrano
-  git-deploy
   jquery-rails (>= 0.2.6)
   mechanize
   mongoid
