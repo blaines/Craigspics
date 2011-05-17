@@ -6,7 +6,7 @@
     <%= text_field_tag :min_ask, params[:min_ask], :size => 4, :placeholder => "Min" %>
     <%= text_field_tag :max_ask, params[:max_ask], :size => 4, :placeholder => "Max" %>
     <%= submit_tag "Search", :name => nil %> in
-    <%= select :location, params[:location], %w[phoenix chicago san\ francisco], {:include_blank => true} %>
+    <%= select_tag :location, params[:location], %w[phoenix chicago san\ francisco], {:include_blank => true} %>
 <%= link_to("Next Page", {:location => params[:location], :s => @s.to_i+100}) %>
   </p>
 <% end %>
