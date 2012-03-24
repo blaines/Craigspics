@@ -1,7 +1,12 @@
-<div class="sections">
-	<% @sections.each do |section| %>
-	<div class="section">
-		<%= link_to section.text, "/sections/#{section.href}#{'?location='+params[:location] if params[:location]}" %>
+<div style="text-align:center">
+	<h1>Craigspics</h1>
+	<% @domains.each_slice(3) do |tridomain| %>
+	<div style="width:33.3333%; float: left;">
+		<% tridomain.each do |domain| %>
+		<div>
+			<%= link_to domain.text, "/#{/http:\/\/(.+)\.craigslist\.org/.match(domain.href)[1]}" %>
+		</div>
+		<% end %>	
 	</div>
-	<% end %>	
+	<% end %>
 </div>

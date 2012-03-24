@@ -1,0 +1,12 @@
+<div style="text-align:center">
+	<h1><a href="/">Craigspics</a> / <%= link_to params[:city], "/#{params[:city]}" %></h1>
+	<% @sections.each_slice(3) do |trisection| %>
+	<div style="width:33.3333%; float: left;">
+		<% trisection.each do |section| %>
+		<div>
+			<%= link_to section.text, "/#{params[:city]}/#{section.href}" %>
+		</div>
+		<% end %>	
+	</div>
+	<% end %>
+</div>

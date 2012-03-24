@@ -1,5 +1,9 @@
 Craigspics::Application.routes.draw do
   resources :items
+  
+  match ':city' => "sections#city"
+  match ':city/:category' => "sections#search"
+  match ':city/:area/:category' => "sections#search"
 
   resources :sections do
     member do
